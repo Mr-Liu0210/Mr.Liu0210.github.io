@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>铭记历史 珍爱和平 - 抗日战争胜利80周年纪念</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* 红色主题配色 - 增强黄色元素 */
+        :root {
+            --primary-red: #c62f2f;
+            --dark-red: #a52a2a;
+            --light-red: #e74c3c;
+            --gold: #d4af37;
+            --light-gold: #f0c856;
+            --dark-gold: #b8860b;
+            --white: #ffffff;
+        }
+        
+        /* 导航栏 */
+        header {
+            background: linear-gradient(to right, var(--dark-red), var(--primary-red));
+            color: var(--white);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border-bottom: 2px solid var(--gold);
+        }
+        
+        .scrolled {
+            background: rgba(198, 47, 47, 0.95);
+            padding: 0.7rem 2rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--gold);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--light-gold);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* 下拉菜单 */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+            top: 100%;
+            left: 0;
+            border-top: 3px solid var(--gold);
+        }
+        
+        .dropdown-content a {
+            color: var(--dark-red);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: rgba(198, 47, 47, 0.1);
+            color: var(--primary-red);
+            padding-left: 20px;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        /* 英雄区域 - 恢弘大气的主题图片 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), 
+                        url('https://images.pexels.com/photos/1213716/pexels-photo-1213716.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 2rem;
+            margin-top: 60px;
+            position: relative;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, #f5f5f5, transparent);
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            animation: fadeInUp 1s ease;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+        }
+        
+        .hero p {
+            font-size: 1.6rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+        
+        .hero .date {
+            position: absolute;
+            bottom: 50px;
+            font-size: 1.2rem;
+            color: var(--light-gold);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+            animation: fadeIn 2s ease 1s both;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--dark-red);
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 2px solid transparent;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background-color: #e6c158;
+            border-color: var(--white);
+        }
+        
+        /* 内容区域 */
+        .section {
+            padding: 5rem 2rem;
+            position: relative;
+        }
+        
+        /* 各区域背景图 */
+        #history {
+            background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.95)), url('https://s.coze.cn/image/2UQcScLeO1U/');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        #spirit {
+            background-image: linear-gradient(rgba(249,249,249,0.95), rgba(249,249,249,0.95)), url('https://s.coze.cn/image/3z0cde7sPqk/');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        #memory {
+            background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.95)), url('https://s.coze.cn/image/WRZCM0tNcFw/');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        #culture {
+            background-image: linear-gradient(rgba(255,255,255,0.98), rgba(255,255,255,0.98)), url('https://s.coze.cn/image/DvvTRIk64uE/');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        #peace {
+            background-image: linear-gradient(rgba(249,249,249,0.95), rgba(249,249,249,0.95)), url('https://s.coze.cn/image/3z0cde7sPqk/');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background-color: var(--gold);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark-red);
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--gold);
+        }
+        
+        /* 时间轴 - 增加黄色点缀 */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-red);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--white);
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--primary-red);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .timeline-content h3 {
+            color: var(--dark-red);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .timeline-content h3::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: var(--gold);
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .timeline-img {
+            width: 100%;
+            height: 180px;
+            margin: 15px 0;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 3px solid var(--light-gold);
+        }
+        
+        .timeline-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .timeline-content:hover .timeline-img img {
+            transform: scale(1.05);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--white);
+            border: 4px solid var(--primary-red);
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: -10px;
+            background-color: var(--white);
+            border: 4px solid var(--primary-red);
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        /* 卡片区域 - 增强红黄配色 */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            border-top: 4px solid var(--gold);
+            cursor: pointer;
+        }
+        
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-top-color: var(--light-gold);
+        }
+        
+        .card-img {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--gold);
+            color: var(--dark-red);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .card-content {
+            padding: 2rem;
+        }
+        
+        .card h3 {
+            color: var(--dark-red);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+        }
+        
+        .card h3::before {
+            content: '★';
+            color: var(--gold);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        
+        /* 三级目录内容区域 - 修改为全屏宽度 */
+        .sub-content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr; /* 修改为单列布局 */
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+        
+        .sub-content {
+            display: none;
+            padding: 3rem; /* 增加内边距 */
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--gold);
+            scroll-margin-top: 100px;
+        }
+        
+        .sub-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .sub-content h3 {
+            color: var(--dark-red);
+            margin-bottom: 1.5rem; /* 增加底部间距 */
+            border-left: 4px solid var(--gold);
+            padding-left: 15px; /* 增加左侧内边距 */
+            font-size: 2rem; /* 增大字体 */
+        }
+        
+        .sub-content p {
+            margin-bottom: 1.5rem; /* 增加段落间距 */
+            line-height: 1.7; /* 增加行高 */
+            font-size: 1.2rem; /* 增大字体 */
+        }
+        
+        .sub-content ul {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .sub-content li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        
+        .sub-content-img {
+            width: 100%;
+            height: 450px; /* 增加高度以适应更宽布局 */
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            margin: 2rem 0; /* 增加上下边距 */
+            border: 4px solid var(--light-gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* 图片网格 */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 增加最小宽度 */
+            gap: 1.5rem; /* 增加间距 */
+            margin: 2.5rem 0; /* 增加上下边距 */
+        }
+        
+        .grid-item {
+            height: 200px; /* 增加高度 */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border: 3px solid var(--white);
+        }
+        
+        .grid-item:hover {
+            transform: scale(1.05);
+            border-color: var(--gold);
+        }
+        
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 联系我们区域 */
+        #contact {
+            background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.98)), url('https://s.coze.cn/image/f0RS_JRx8PA/');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-top: 5px solid var(--gold);
+            text-align: center;
+        }
+        
+        .contact-info {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.3rem;
+            color: var(--dark-red);
+        }
+        
+        .contact-item i {
+            font-size: 1.8rem;
+            color: var(--gold);
+            background-color: rgba(198, 47, 47, 0.1);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 动态效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* 页脚 - 增强红黄配色 */
+        footer {
+            background: linear-gradient(to right, var(--dark-red), var(--primary-red));
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 3px solid var(--gold);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+        
+        .footer-logo span {
+            color: var(--gold);
+        }
+        
+        .footer-links {
+            display: flex;
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .footer-links li {
+            margin: 0 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+        
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+        
+        .copyright {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .national-emblem {
+            width: 80px;
+            height: 80px;
+            margin: 1rem auto;
+            background-color: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-red);
+            font-size: 2.5rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: 21px;
+            }
+            
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .image-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .sub-content-img {
+                height: 250px; /* 移动端保持适中高度 */
+            }
+            
+            .contact-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .sub-content-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            /* 移动端调整子内容样式 */
+            .sub-content {
+                padding: 2rem;
+            }
+            
+            .sub-content h3 {
+                font-size: 1.6rem;
+            }
+            
+            .sub-content p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* 新增：为所有内容区域添加滚动偏移 */
+        .section[id] {
+            scroll-margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <nav>
+            <div class="logo">抗战<span>记忆</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#history">抗战历程</a></li>
+                <li class="dropdown">
+                    <a href="#spirit">抗战精神 <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#spirit1">爱国主义精神</a>
+                        <a href="#spirit2">英雄主义精神</a>
+                        <a href="#spirit3">民族团结精神</a>
+                        <a href="#spirit4">艰苦奋斗精神</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#memory">历史记忆 <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#memory1">重要战役</a>
+                        <a href="#memory2">抗战英雄</a>
+                        <a href="#memory3">日军暴行</a>
+                        <a href="#memory4">国际援助</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#culture">抗战文化 <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#culture1">抗战文学</a>
+                        <a href="#culture2">抗战艺术</a>
+                        <a href="#culture3">抗战电影</a>
+                        <a href="#culture4">抗战音乐</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#peace">和平发展 <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#peace1">战后重建</a>
+                        <a href="#peace2">中日友好</a>
+                        <a href="#peace3">和平教育</a>
+                        <a href="#peace4">历史反思</a>
+                    </div>
+                </li>
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <h1>铭记历史 珍爱和平</h1>
+        <p>纪念中国人民抗日战争胜利80周年 - 缅怀先烈，传承精神，开创未来</p>
+        <a href="#history" class="cta-button pulse">了解抗战历史</a>
+        <div class="date">1945-2025</div>
+    </section>
+
+    <!-- 抗战历程 -->
+    <section class="section" id="history">
+        <h2 class="section-title">抗日战争重要历程</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>1931年 - 九一八事变</h3>
+                    <p>日本关东军发动九一八事变，侵占中国东北，标志着局部抗战的开始。</p>
+                    <div class="timeline-img">
+                        <img src="https://s.coze.cn/image/WRaVcmYzqsM/" alt="九一八事变历史图片">
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>1937年 - 七七事变</h3>
+                    <p>日本发动全面侵华战争，中国军民奋起抵抗，全民族抗战正式开始。</p>
+                    <div class="timeline-img">
+                        <img src="https://s.coze.cn/image/JsXQNFA6YGg/" alt="七七事变历史图片">
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>1937年 - 南京大屠杀</h3>
+                    <p>日军攻占南京后实施长达六周的大屠杀，30多万中国军民惨遭杀害。</p>
+                    <div class="timeline-img">
+                        <img src="https://s.coze.cn/image/Rgkfb13INTU/" alt="南京大屠杀历史图片">
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>1938年 - 台儿庄大捷</h3>
+                    <p>中国军队在台儿庄战役中取得重大胜利，歼灭日军一万余人。</p>
+                    <div class="timeline-img">
+                        <img src="https://s.coze.cn/image/Dq40ECfaeLM/" alt="台儿庄大捷历史图片">
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>1940年 - 百团大战</h3>
+                    <p>八路军在华北地区发动大规模进攻战役，沉重打击了日军。</p>
+                    <div class="timeline-img">
+                        <img src="https://s.coze.cn/image/k-V69YYK7F8/" alt="百团大战历史图片">
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>1945年 - 抗战胜利</h3>
+                    <p>日本宣布无条件投降，中国人民抗日战争取得最终胜利。</p>
+                    <div class="timeline-img">
+                        <img src="https://s.coze.cn/image/sQkOcbpnnls/" alt="抗战胜利历史图片">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 抗战精神 -->
+    <section class="section" id="spirit">
+        <h2 class="section-title">伟大抗战精神</h2>
+        <div class="cards-container">
+            <div class="card" data-target="spirit1">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/3zvpChG2SMs/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">核心精神</div>
+                </div>
+                <div class="card-content">
+                    <h3>爱国主义精神</h3>
+                    <p>天下兴亡、匹夫有责的爱国情怀，是抗日战争取得胜利的精神支柱。</p>
+                </div>
+            </div>
+            <div class="card" data-target="spirit2">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/arR90btn7dM/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">英雄气概</div>
+                </div>
+                <div class="card-content">
+                    <h3>英雄主义精神</h3>
+                    <p>视死如归、宁死不屈的民族气节，不畏强暴、血战到底的英雄气概。</p>
+                </div>
+            </div>
+            <div class="card" data-target="spirit3">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/KWVtWuoleAs/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">力量源泉</div>
+                </div>
+                <div class="card-content">
+                    <h3>民族团结精神</h3>
+                    <p>万众一心、共赴国难的民族团结意识，是战胜日本侵略者的重要保证。</p>
+                </div>
+            </div>
+            <div class="card" data-target="spirit4">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/D0PYtc_z8G0/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">坚韧不拔</div>
+                </div>
+                <div class="card-content">
+                    <h3>艰苦奋斗精神</h3>
+                    <p>百折不挠、坚韧不拔的必胜信念，支撑中国人民度过最艰难的岁月。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 三级目录内容 - 抗战精神 -->
+        <div class="sub-content-container">
+            <div id="spirit1" class="sub-content">
+                <h3>爱国主义精神 - 天下兴亡，匹夫有责</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/3zvpChG2SMs/');"></div>
+                <p>抗日战争时期，面对民族危亡，中国人民展现出强烈的爱国主义精神。"天下兴亡，匹夫有责"成为全体中国人的共同信念，激励着无数中华儿女为保卫祖国而奋斗。</p>
+                <p>爱国主义精神的主要表现：</p>
+                <ul>
+                    <li><strong>全民抗战</strong> - 从城市到乡村，从知识分子到普通民众，全体中国人民都投入到抗日救亡运动中</li>
+                    <li><strong>海外华侨支援</strong> - 海外华侨积极捐款捐物，许多华侨青年回国参战</li>
+                    <li><strong>文化抗战</strong> - 文化界人士通过文艺作品激发民众抗日热情</li>
+                    <li><strong>实业救国</strong> - 民族企业家将工厂内迁，支持抗战物资生产</li>
+                </ul>
+                <p>这种深厚的爱国主义精神是中国人民战胜日本侵略者的强大精神力量，也是我们今天需要继承和发扬的宝贵精神财富。</p>
+                
+                <div class="image-grid">
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/Yv3YDOqFbjE/" alt="爱国精神图片1">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/aeTpc4BTPng/" alt="爱国精神图片2">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/_Du8R_2u8qw/" alt="爱国精神图片3">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/01MhVlgiQ_c/" alt="爱国精神图片4">
+                    </div>
+                </div>
+            </div>
+
+            <div id="spirit2" class="sub-content">
+                <h3>英雄主义精神 - 视死如归，血战到底</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/arR90btn7dM/');"></div>
+                <p>在抗日战争中，中国军民展现出视死如归、血战到底的英雄主义精神。无数抗日英雄用鲜血和生命捍卫国家尊严和民族独立。</p>
+                <p>英雄主义精神的典型事例：</p>
+                <ul>
+                    <li><strong>狼牙山五壮士</strong> - 为掩护主力部队转移，与日军战斗到最后一刻，英勇跳崖</li>
+                    <li><strong>八百壮士</strong> - 在四行仓库坚守四昼夜，抗击日军多次进攻</li>
+                    <li><strong>杨靖宇将军</strong> - 在冰天雪地中与日军周旋，牺牲后胃里只有草根和棉絮</li>
+                    <li><strong>张自忠将军</strong> - 抗战中牺牲的最高级别将领，践行了"为国家民族死之决心"的誓言</li>
+                </ul>
+                <p>这些英雄人物和事迹，充分展现了中国人民不畏强暴、血战到底的英雄气概，是中华民族精神的生动体现。</p>
+                
+                <div class="image-grid">
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/k-V69YYK7F8/" alt="英雄主义图片1">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/o5KGVv0DgOQ/" alt="英雄主义图片2">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/-zJuN39Ig9w/" alt="英雄主义图片3">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/se7uTmyg5es/" alt="英雄主义图片4">
+                    </div>
+                </div>
+            </div>
+
+            <div id="spirit3" class="sub-content">
+                <h3>民族团结精神 - 万众一心，共赴国难</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/Sd4hZlEm2H4/');"></div>
+                <p>抗日战争是中华民族全民族的抗战，各民族、各阶层、各党派团结一致，形成了抗日民族统一战线，共同抗击日本侵略者。</p>
+                <p>民族团结精神的具体表现：</p>
+                <ul>
+                    <li><strong>国共合作</strong> - 中国共产党和中国国民党暂时放下分歧，共同抗日</li>
+                    <li><strong>各民族参与</strong> - 全国各族人民积极参与抗战，形成了全民抗战的壮阔局面</li>
+                    <li><strong>海外华人支持</strong> - 海外华侨积极捐款捐物，支援祖国抗战</li>
+                    <li><strong>国际友人援助</strong> - 许多国际友人也加入到中国抗战的行列中</li>
+                </ul>
+                <p>这种万众一心、共赴国难的民族团结精神，是中国人民战胜日本侵略者的重要保证，也是中华民族凝聚力的生动体现。</p>
+                
+                <div class="image-grid">
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/Dq40ECfaeLM/" alt="民族团结图片1">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/D0PYtc_z8G0/" alt="民族团结图片2">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/Sd4hZlEm2H4/" alt="民族团结图片3">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/e02uhlAB9r8/" alt="民族团结图片4">
+                    </div>
+                </div>
+            </div>
+
+            <div id="spirit4" class="sub-content">
+                <h3>艰苦奋斗精神 - 百折不挠，坚韧不拔</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/D0PYtc_z8G0/');"></div>
+                <p>在极端困难的条件下，中国人民展现出百折不挠、坚韧不拔的艰苦奋斗精神。这种精神支撑着中国人民度过了抗战最艰难的岁月。</p>
+                <p>艰苦奋斗精神的体现：</p>
+                <ul>
+                    <li><strong>敌后抗战</strong> - 在日军占领区，抗日军民在极其困难的条件下坚持斗争</li>
+                    <li><strong>大后方坚持</strong> - 在物资极度匮乏的情况下，大后方人民坚持生产，支援前线</li>
+                    <li><strong>长征精神延续</strong> - 抗战中的艰苦奋斗精神是红军长征精神的延续和发展</li>
+                    <li><strong>自力更生</strong> - 在外部援助有限的情况下，中国人民主要依靠自身力量坚持抗战</li>
+                </ul>
+                <p>这种艰苦奋斗精神不仅支撑中国人民赢得了抗日战争的胜利，也成为中华民族宝贵的精神财富，激励着一代又一代中国人克服困难、勇往直前。</p>
+                
+                <div class="image-grid">
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/pzv243k4Fg0/" alt="艰苦奋斗图片1">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/u4P-d-HbmB0/" alt="艰苦奋斗图片2">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/J0ME2L8_y54/" alt="艰苦奋斗图片3">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/LGfvuwU2ZnY/" alt="艰苦奋斗图片4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 历史记忆 -->
+    <section class="section" id="memory">
+        <h2 class="section-title">抗战历史记忆</h2>
+        <div class="cards-container">
+            <div class="card" data-target="memory1">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/83dwRuVzSmA/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">浴血奋战</div>
+                </div>
+                <div class="card-content">
+                    <h3>重要战役</h3>
+                    <p>淞沪会战、太原会战、徐州会战、武汉会战等重大战役，展现了中国军民的英勇抵抗。</p>
+                </div>
+            </div>
+            <div class="card" data-target="memory2">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/o82o-OTi60o/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">民族脊梁</div>
+                </div>
+                <div class="card-content">
+                    <h3>抗战英雄</h3>
+                    <p>左权、彭德怀、林彪、叶挺等抗日将领，以及无数无名英雄，用生命捍卫国家尊严。</p>
+                </div>
+            </div>
+            <div class="card" data-target="memory3">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/t4l12c8S5VA/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">历史警示</div>
+                </div>
+                <div class="card-content">
+                    <h3>日军暴行</h3>
+                    <p>南京大屠杀、细菌战、三光政策等日军暴行，警示我们永远不能忘记历史教训。</p>
+                </div>
+            </div>
+            <div class="card" data-target="memory4">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/sQkOcbpnnls/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">国际支援</div>
+                </div>
+                <div class="card-content">
+                    <h3>国际援助</h3>
+                    <p>苏联、美国等国家的援助，以及飞虎队等国际友人的支持，为中国抗战提供了重要帮助。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 三级目录内容 - 历史记忆 -->
+        <div class="sub-content-container">
+            <div id="memory1" class="sub-content">
+                <h3>重要战役 - 中国军民的英勇抵抗</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/83dwRuVzSmA/');"></div>
+                <p>抗日战争期间，中国军队与日军进行了多次重大战役，这些战役虽然多数以中国军队的战术失利告终，但迟滞了日军的进攻步伐，消耗了日军的有生力量，为最终胜利奠定了基础。</p>
+                <p>主要战役介绍：</p>
+                <ul>
+                    <li><strong>淞沪会战（1937年）</strong> - 抗战初期规模最大、战斗最惨烈的战役，粉碎了日本"三个月灭亡中国"的狂妄计划</li>
+                    <li><strong>太原会战（1937年）</strong> - 国共两党军队首次配合作战，平型关大捷是八路军出师以来的首战胜利</li>
+                    <li><strong>台儿庄战役（1938年）</strong> - 抗战以来中国军队取得的第一次重大胜利，歼灭日军一万余人</li>
+                    <li><strong>武汉会战（1938年）</strong> - 抗战中规模最大的战役，使抗日战争进入相持阶段</li>
+                    <li><strong>百团大战（1940年）</strong> - 八路军在华北地区发动的大规模进攻战役，沉重打击了日军</li>
+                </ul>
+                <p>这些重要战役展现了中国军民的英勇抵抗精神，为世界反法西斯战争作出了重要贡献。</p>
+                
+                <div class="image-grid">
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/UxlYUoHWOA4/" alt="战役图片1">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/4aJ3OqYIniQ/" alt="战役图片2">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/k-V69YYK7F8/" alt="战役图片3">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/Dq40ECfaeLM/" alt="战役图片4">
+                    </div>
+                </div>
+            </div>
+
+            <div id="memory2" class="sub-content">
+                <h3>抗战英雄 - 用生命捍卫国家尊严</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/o82o-OTi60o/');"></div>
+                <p>抗日战争中涌现出无数英雄人物，他们用鲜血和生命捍卫国家尊严和民族独立，他们的英勇事迹永远铭刻在中华民族的历史记忆中。</p>
+                <p>著名抗战英雄：</p>
+                <ul>
+                    <li><strong>张自忠</strong> - 抗战中牺牲的最高级别将领，被誉为"抗战军人之魂"</li>
+                    <li><strong>杨靖宇</strong> - 东北抗日联军的主要创建者和领导人，在极端困难条件下坚持抗战</li>
+                    <li><strong>赵一曼</strong> - 东北抗日联军女英雄，受尽酷刑仍坚贞不屈</li>
+                </ul>
+                <p>这些英雄人物和事迹，充分展现了中国人民不畏强暴、血战到底的英雄气概，是中华民族精神的生动体现。</p>
+                
+                <div class="image-grid">
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/KBAaJ3mVa6g/" alt="英雄图片1">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/d7y-0FDFmbg/" alt="英雄图片2">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/rtzHGg2edkw/" alt="英雄图片3">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/qUr_olI3oRo/" alt="英雄图片4">
+                    </div>
+                </div>
+            </div>
+
+            <div id="memory3" class="sub-content">
+                <h3>日军暴行 - 历史的警示</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/t4l12c8S5VA/');"></div>
+                <p>日本侵略者在侵华战争中犯下了滔天罪行，给中国人民带来了沉重灾难，这些历史事实不容忘记，更不容篡改。</p>
+                <p>主要暴行：</p>
+                <ul>
+                    <li><strong>南京大屠杀</strong> - 1937年12月，日军攻占南京后，进行了长达6周的有组织、有计划、有预谋的大屠杀，30多万手无寸铁的中国平民和战俘惨遭杀害</li>
+                    <li><strong>细菌战</strong> - 日军731部队在华进行活人细菌实验，研制细菌武器并在多地使用，造成大量平民死亡</li>
+                    <li><strong>三光政策</strong> - 日军在敌后抗日根据地实行"烧光、杀光、抢光"的三光政策，制造了无数惨案</li>
+                    <li><strong>慰安妇制度</strong> - 日军强迫数十万中国、朝鲜等亚洲国家妇女充当慰安妇，犯下严重反人类罪行</li>
+                </ul>
+                <p>铭记这些历史不是为了延续仇恨，而是为了警惕战争悲剧再次发生，珍惜今天的和平生活。</p>
+                
+                <div class="image-grid">
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/Rgkfb13INTU/" alt="暴行图片1">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/Ua7-yVPwI_w/" alt="暴行图片2">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/hhGTkOznjLY/" alt="暴行图片3">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/37uSZHkC1Hc/" alt="暴行图片4">
+                    </div>
+                </div>
+            </div>
+
+            <div id="memory4" class="sub-content">
+                <h3>国际援助 - 正义的支持</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/sQkOcbpnnls/');"></div>
+                <p>中国的抗日战争得到了国际社会的广泛支持，许多国家和国际友人给予了中国宝贵的援助，为中国抗战胜利作出了重要贡献。</p>
+                <p>主要援助：</p>
+                <ul>
+                    <li><strong>苏联援助</strong> - 苏联是最早向中国提供援助的国家，派遣志愿航空队来华参战，提供大量武器装备</li>
+                    <li><strong>美国援助</strong> - 太平洋战争爆发后，美国加大对华援助，通过"驼峰航线"运送大量战略物资，陈纳德将军组建的飞虎队在华作战</li>
+                    <li><strong>国际友人</strong> - 白求恩、柯棣华等国际友人来华参加抗日救亡运动，为中国人民的解放事业贡献了生命</li>
+                    <li><strong>海外华侨</strong> - 数千万海外华侨积极捐款捐物，组织华侨抗日团体，许多华侨青年回国参战</li>
+                </ul>
+                <p>这些国际援助体现了世界反法西斯力量的团结协作，展现了人类正义事业的强大力量。</p>
+                
+                <div class="image-grid">
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/sQkOcbpnnls/" alt="援助图片1">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/X3aMT8JcCr4/" alt="援助图片2">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/eKK8yMNJsY8/" alt="援助图片3">
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://s.coze.cn/image/se7uTmyg5es/" alt="援助图片4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 和平发展 -->
+    <section class="section" id="peace">
+        <h2 class="section-title">和平发展</h2>
+        <div class="cards-container">
+            <div class="card" data-target="peace1">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/pzv243k4Fg0/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">重建家园</div>
+                </div>
+                <div class="card-content">
+                    <h3>战后重建</h3>
+                    <p>抗战胜利后，中国人民在废墟上重建家园，展现了中华民族的坚韧与智慧。</p>
+                </div>
+            </div>
+            <div class="card" data-target="peace2">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/e02uhlAB9r8/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">面向未来</div>
+                </div>
+                <div class="card-content">
+                    <h3>中日友好</h3>
+                    <p>在铭记历史的同时，中国人民致力于推动中日友好，促进亚洲和平与发展。</p>
+                </div>
+            </div>
+            <div class="card" data-target="peace3">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/Sd4hZlEm2H4/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">教育传承</div>
+                </div>
+                <div class="card-content">
+                    <h3>和平教育</h3>
+                    <p>通过历史教育和和平教育，培养青少年正确的历史观和和平理念。</p>
+                </div>
+            </div>
+            <div class="card" data-target="peace4">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/LGfvuwU2ZnY/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">历史启迪</div>
+                </div>
+                <div class="card-content">
+                    <h3>历史反思</h3>
+                    <p>深刻反思战争教训，珍视和平成果，共同维护世界和平与发展。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 三级目录内容 - 和平发展 -->
+        <div class="sub-content-container">
+            <div id="peace1" class="sub-content">
+                <h3>战后重建 - 在废墟上重建家园</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/pzv243k4Fg0/');"></div>
+                <p>抗战胜利后，面对满目疮痍的家园，中国人民展现出了惊人的韧性和创造力，在废墟上重建家园，开启了国家建设的新篇章。</p>
+                <p>战后重建的主要成就：</p>
+                <ul>
+                    <li><strong>经济恢复</strong> - 通过土地改革、工商业调整等措施，迅速恢复国民经济</li>
+                    <li><strong>基础设施建设</strong> - 修复和新建铁路、公路、桥梁等基础设施</li>
+                    <li><strong>教育文化重建</strong> - 恢复学校和教育机构，重建文化设施</li>
+                    <li><strong>民生改善</strong> - 解决战争造成的难民问题，改善人民生活条件</li>
+                </ul>
+                <p>战后重建不仅恢复了国家的经济和社会秩序，更为后来的现代化建设奠定了基础，展现了中华民族在逆境中奋起的伟大精神。</p>
+            </div>
+
+            <div id="peace2" class="sub-content">
+                <h3>中日友好 - 面向未来的和平之路</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/e02uhlAB9r8/');"></div>
+                <p>在铭记历史的同时，中国人民始终秉持和平发展的理念，致力于推动中日友好，为亚洲乃至世界的和平与发展作出贡献。</p>
+                <p>中日友好的重要举措：</p>
+                <ul>
+                    <li><strong>邦交正常化</strong> - 1972年实现中日邦交正常化，开启两国关系新篇章</li>
+                    <li><strong>经济合作</strong> - 日本成为中国重要的贸易伙伴和投资来源国</li>
+                    <li><strong>文化交流</strong> - 两国在文化、教育、科技等领域的交流日益频繁</li>
+                    <li><strong>青年交流</strong> - 推动两国青年之间的交流，增进相互理解和友谊</li>
+                </ul>
+                <p>中日友好符合两国人民的根本利益，也有利于亚洲和世界的和平稳定。铭记历史、面向未来，是处理中日关系的正确态度。</p>
+            </div>
+
+            <div id="peace3" class="sub-content">
+                <h3>和平教育 - 培养正确的历史观</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/Sd4hZlEm2H4/');"></div>
+                <p>通过系统的历史教育和和平教育，培养青少年正确的历史观、民族观和国家观，传承抗战精神，珍视和平成果。</p>
+                <p>和平教育的主要内容：</p>
+                <ul>
+                    <li><strong>历史教育</strong> - 客观、全面地讲授抗战历史，让学生了解历史的真相</li>
+                    <li><strong>爱国主义教育</strong> - 培养学生的爱国情怀和民族自豪感</li>
+                    <li><strong>和平理念教育</strong> - 引导学生珍视和平、反对战争</li>
+                    <li><strong>国际理解教育</strong> - 培养学生跨文化交流和国际合作的能力</li>
+                </ul>
+                <p>和平教育是防止历史悲剧重演的重要途径，也是培养担当民族复兴大任时代新人的必然要求。</p>
+            </div>
+
+            <div id="peace4" class="sub-content">
+                <h3>历史反思 - 珍视和平，开创未来</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/LGfvuwU2ZnY/');"></div>
+                <p>深刻反思战争教训，珍视来之不易的和平成果，共同维护世界和平与发展，是人类社会的共同责任。</p>
+                <p>历史反思的重要意义：</p>
+                <ul>
+                    <li><strong>汲取历史教训</strong> - 从历史中汲取智慧，防止悲剧重演</li>
+                    <li><strong>珍视和平成果</strong> - 认识到和平的珍贵，共同维护和平环境</li>
+                    <li><strong>促进人类进步</strong> - 在反思中推动人类社会向更加文明、和谐的方向发展</li>
+                    <li><strong>构建人类命运共同体</strong> - 认识到各国命运与共，需要携手应对共同挑战</li>
+                </ul>
+                <p>历史是最好的教科书，也是最好的清醒剂。只有深刻反思历史，才能更好地面向未来，共同建设持久和平、普遍安全、共同繁荣的世界。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 抗战文化 -->
+    <section class="section" id="culture">
+        <h2 class="section-title">抗战文化</h2>
+        <div class="cards-container">
+            <div class="card" data-target="culture1">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/-Sma81UqsGA/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">精神武器</div>
+                </div>
+                <div class="card-content">
+                    <h3>抗战文学</h3>
+                    <p>以抗日战争为主题的文学作品，激励了无数中华儿女投身抗日救亡运动。</p>
+                </div>
+            </div>
+            <div class="card" data-target="culture2">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/SLHY96eJjyI/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">艺术力量</div>
+                </div>
+                <div class="card-content">
+                    <h3>抗战艺术</h3>
+                    <p>绘画、雕塑等艺术形式记录历史，传递抗战精神，成为鼓舞民心的重要力量。</p>
+                </div>
+            </div>
+            <div class="card" data-target="culture3">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/ZPIV5V8MbAA/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">影像记忆</div>
+                </div>
+                <div class="card-content">
+                    <h3>抗战电影</h3>
+                    <p>以抗战为题材的电影作品，真实记录了战争的残酷和人民的抗争。</p>
+                </div>
+            </div>
+            <div class="card" data-target="culture4">
+                <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://s.coze.cn/image/fcdhniZIlYY/'); background-size: cover; background-position: center;">
+                    <div class="card-badge">旋律力量</div>
+                </div>
+                <div class="card-content">
+                    <h3>抗战音乐</h3>
+                    <p>《义勇军进行曲》等抗战歌曲成为凝聚民族力量的精神纽带。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 三级目录内容 - 抗战文化 -->
+        <div class="sub-content-container">
+            <div id="culture1" class="sub-content">
+                <h3>抗战文学 - 精神武器</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/-Sma81UqsGA/');"></div>
+                <p>抗日战争时期，文学成为重要的精神武器，许多作家以笔为枪，创作了大量反映抗战的文学作品，激励了无数中华儿女投身抗日救亡运动。</p>
+                <p>主要抗战文学作品：</p>
+                <ul>
+                    <li><strong>《四世同堂》</strong> - 老舍的长篇小说，描写了抗日战争时期北平沦陷区普通民众的生活与抗争</li>
+                    <li><strong>《保卫延安》</strong> - 杜鹏程的长篇小说，真实记录了延安保卫战的历史进程</li>
+                    <li><strong>《小二黑结婚》</strong> - 赵树理的短篇小说，通过农村青年的爱情故事，展现了抗日根据地的新生活</li>
+                    <li><strong>《白毛女》</strong> - 贺敬之、丁毅的歌剧，通过"旧社会把人逼成鬼，新社会把鬼变成人"的故事，激发了民众的阶级觉悟和抗日热情</li>
+                </ul>
+                <p>这些文学作品不仅记录了历史，更成为凝聚民族精神、鼓舞抗战士气的重要力量。</p>
+            </div>
+
+            <div id="culture2" class="sub-content">
+                <h3>抗战艺术 - 艺术力量</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/SLHY96eJjyI/');"></div>
+                <p>抗日战争时期，艺术工作者们用画笔、刻刀等工具，创作了大量反映抗战的艺术作品，成为鼓舞民心、打击敌人的重要力量。</p>
+                <p>主要抗战艺术形式：</p>
+                <ul>
+                    <li><strong>版画</strong> - 鲁迅倡导的新兴木刻运动在抗战时期得到蓬勃发展，作品具有强烈的战斗性和现实意义</li>
+                    <li><strong>漫画</strong> - 张乐平的《三毛从军记》等漫画作品，以幽默讽刺的方式揭露日军暴行，鼓舞民众斗志</li>
+                    <li><strong>宣传画</strong> - 以抗日救亡为主题的宣传画广泛张贴于城乡各地，成为最直接的宣传方式</li>
+                    <li><strong>雕塑</strong> - 以抗战英雄为原型的雕塑作品，成为永恒的纪念和象征</li>
+                </ul>
+                <p>这些艺术作品不仅具有很高的艺术价值，更承载了重要的历史记忆和民族情感。</p>
+            </div>
+
+            <div id="culture3" class="sub-content">
+                <h3>抗战电影 - 影像记忆</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/ZPIV5V8MbAA/');"></div>
+                <p>抗日战争时期，电影工作者克服重重困难，拍摄了一批反映抗战的电影作品，真实记录了战争的残酷和人民的抗争精神。</p>
+                <p>主要抗战电影作品：</p>
+                <ul>
+                    <li><strong>《一江春水向东流》</strong> - 蔡楚生、郑君里联合导演，通过一个家庭的遭遇，展现了抗日战争时期的社会百态</li>
+                    <li><strong>《八千里路云和月》</strong> - 史东山导演，描写了抗日救亡演剧队的艰苦历程</li>
+                    <li><strong>《地道战》</strong> - 任旭东导演，讲述了冀中人民利用地道战抗击日军的故事</li>
+                    <li><strong>《鸡毛信》</strong> - 石挥导演，通过儿童团长海娃送鸡毛信的故事，展现了抗日根据地儿童的勇敢机智</li>
+                </ul>
+                <p>这些电影作品不仅是重要的历史资料，更成为传承抗战精神的重要载体。</p>
+            </div>
+
+            <div id="culture4" class="sub-content">
+                <h3>抗战音乐 - 旋律力量</h3>
+                <div class="sub-content-img" style="background: url('https://s.coze.cn/image/fcdhniZIlYY/');"></div>
+                <p>抗日战争时期，音乐成为凝聚民族力量、鼓舞抗战士气的重要武器，许多抗战歌曲至今仍广为传唱。</p>
+                <p>主要抗战音乐作品：</p>
+                <ul>
+                    <li><strong>《义勇军进行曲》</strong> - 田汉作词，聂耳作曲，后来成为中华人民共和国国歌</li>
+                    <li><strong>《黄河大合唱》</strong> - 光未然作词，冼星海作曲，以黄河为象征，歌颂了中华民族的不屈不挠精神</li>
+                    <li><strong>《游击队歌》</strong> - 贺绿汀作曲，描写了游击队员的战斗生活，旋律轻快活泼，充满乐观精神</li>
+                    <li><strong>《在太行山上》</strong> - 桂涛声作词，冼星海作曲，歌颂了太行山区军民的抗日斗争</li>
+                </ul>
+                <p>这些抗战歌曲不仅具有很高的艺术价值，更承载了中华民族的苦难与抗争，成为永恒的精神财富。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section class="section" id="contact">
+        <h2 class="section-title">联系我们</h2>
+        <div class="contact-container">
+            <h3>感谢您对本纪念网站的关注</h3>
+            <p>如果您有任何问题、建议或需要更多历史资料，请通过以下方式与我们联系：</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>我的邮箱：3316496944@qq.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>联系电话：15682770095</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：甘肃省兰州市爱国主义教育基地</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">抗战<span>记忆</span></div>
+            <div class="national-emblem">★</div>
+            <ul class="footer-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#history">抗战历程</a></li>
+                <li><a href="#spirit">抗战精神</a></li>
+                <li><a href="#memory">历史记忆</a></li>
+                <li><a href="#culture">抗战文化</a></li>
+                <li><a href="#peace">和平发展</a></li>
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+            <p class="copyright">© 2025 抗日战争胜利80周年纪念 | 铭记历史 · 珍爱和平</p>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 时间轴动画
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        timelineItems.forEach(item => {
+            observer.observe(item);
+        });
+
+        // 卡片动画
+        const cards = document.querySelectorAll('.card');
+        
+        cards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // 三级目录切换 - 修复点击无响应问题
+        cards.forEach(card => {
+            card.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const subContents = document.querySelectorAll('.sub-content');
+                
+                subContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                const targetContent = document.getElementById(targetId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                    
+                    // 滚动到对应的内容区域
+                    targetContent.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 下拉菜单点击处理
+        document.querySelectorAll('.dropdown-content a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const subContents = document.querySelectorAll('.sub-content');
+                
+                subContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                const targetContent = document.getElementById(targetId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                    
+                    // 滚动到对应的内容区域
+                    targetContent.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
